@@ -2,6 +2,9 @@ import express from "express";
 
 import { Server } from "http";
 import { routes as identificacaoRoutes } from "../../../../../identificacao/application/adapters/in/route";
+import { swaggerSetup } from "./docs/swagger.setup";
+
+const app = express();
 
 export async function expressStart() {
   const app = express();
@@ -10,6 +13,7 @@ export async function expressStart() {
   app.use(express.json());
 
   identificacaoRoutes(app);
+  swaggerSetup(app);
 
   return app.listen(port, () => {
     console.log(`Tech Challeng está ativo na porta:  ${port}`);

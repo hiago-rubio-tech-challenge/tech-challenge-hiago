@@ -1,0 +1,223 @@
+{
+  "components": {
+    "schemas": {
+      "Error": {
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Product": {
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Administração de produtos",
+    "title": "API de Administração de Produtos",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/admin/products": {
+      "delete": {
+        "description": "Exclui um produto existente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "id": {
+                    "description": "ID do produto a ser excluído",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            },
+            "description": "Produto excluído com sucesso"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Erro interno do servidor"
+          }
+        },
+        "summary": "Excluir um produto",
+        "tags": ["admin"]
+      },
+      "patch": {
+        "description": "Atualiza as informações de um produto existente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            },
+            "description": "Produto atualizado com sucesso"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Erro interno do servidor"
+          }
+        },
+        "summary": "Atualizar um produto",
+        "tags": ["admin"]
+      },
+      "post": {
+        "description": "Cria um novo produto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            },
+            "description": "Produto criado com sucesso"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Erro interno do servidor"
+          }
+        },
+        "summary": "Criar um novo produto",
+        "tags": ["admin"]
+      }
+    },
+    "/admin/products/{category}": {
+      "get": {
+        "description": "Retorna uma lista de produtos para uma categoria específica",
+        "parameters": [
+          {
+            "description": "Categoria do produto",
+            "in": "path",
+            "name": "category",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Lista de produtos"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Categoria inválida"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Erro interno do servidor"
+          }
+        },
+        "summary": "Obter produtos por categoria",
+        "tags": ["admin"]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Servidor local",
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Operações de administração de produtos",
+      "name": "admin"
+    }
+  ]
+}
