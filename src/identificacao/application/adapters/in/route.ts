@@ -8,7 +8,7 @@ export function routes(app: Express): void {
     try {
       const body = req.body;
       const cadastroPayload: CadastroBody = {
-        nome: body.nome,
+        name: body.name,
         email: body.email,
         cpf: body.cpf,
       };

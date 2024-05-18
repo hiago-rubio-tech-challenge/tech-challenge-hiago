@@ -1,9 +1,9 @@
-export interface CadastroSchema {
+export interface ClientSchema {
   _id?: string;
   id: string;
   email: string;
   cpf: string;
-  nome: string;
+  name: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -11,5 +11,5 @@ export interface CadastroSchema {
 export interface CadastroBody {
   email: string;
   cpf: string;
-  nome: string;
+  name: string;
 }

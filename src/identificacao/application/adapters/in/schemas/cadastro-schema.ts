@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import Joi, { func } from "joi";
 import { cpfValidation } from "../../../../../shared/application/adapters/schemas/cpf-validation";
 
-export const cadastroSchema = Joi.object({
-  nome: Joi.string().required(),
+export const CadastroSChema = Joi.object({
+  name: Joi.string().required(),
   email: Joi.string().email().required(),
   cpf: Joi.string().custom(cpfValidation).required(),
 });
@@ -14,7 +14,7 @@ export function validateCadastro(
   next: NextFunction
 ) {
   const body = req.body;
-  const { error } = cadastroSchema.validate(body);
+  const { error } = CadastroSChema.validate(body);
   if (error) {
     res
       .status(400)
