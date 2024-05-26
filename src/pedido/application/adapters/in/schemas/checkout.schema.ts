@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from "express";
 import Joi from "joi";
 
 export interface CheckoutBody {
@@ -34,6 +35,20 @@ const checkoutSchema = Joi.object({
   totalItens: Joi.number().required(),
 });
 
-export function validateCheckout(body: CheckoutBody) {
-  return checkoutSchema.validate(body);
+export function validateCheckout(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const body = req.body;
+  const { error } = checkoutSchema.validate(body);
+  if (error) {
+    res
+      .status(400)
+      .send(
+        "Não foi possível atualizar cadastrar o pedido. Error: Dados inválidos."
+      );
+  } else {
+    next();
+  }
 }

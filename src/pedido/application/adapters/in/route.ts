@@ -17,7 +17,7 @@ export function routes(app: Express): void {
     }
   );
 
-  app.get("pedido", async (req: Request, res: Response) => {
+  app.get("/pedido", async (req: Request, res: Response) => {
     try {
       const pedidoStatus = req.headers["pedido_status"];
       const pedidos = await listPedidos(pedidoStatus as PedidosStatus);
