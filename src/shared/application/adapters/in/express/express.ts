@@ -24,7 +24,6 @@ export function gracefulShutdown(server: Server): void {
   if (server) {
     console.log("Encerrando o servidor Express de forma graciosa...");
 
-    // Fecha o servidor Express
     server.close((err?: Error) => {
       if (err) {
         console.error("Erro ao encerrar o servidor:", err);

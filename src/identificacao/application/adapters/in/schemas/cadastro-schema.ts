@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Joi, { func } from "joi";
-import { cpfValidation } from "../../../../../shared/application/adapters/schemas/cpf-validation";
+import { cpfValidation } from "../../../../../shared/application/adapters/schemas/cpf.validation";
 
 export const CadastroSChema = Joi.object({
   name: Joi.string().required(),

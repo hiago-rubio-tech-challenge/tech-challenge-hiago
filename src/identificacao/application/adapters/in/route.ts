@@ -7,6 +7,7 @@ export function routes(app: Express): void {
   app.post("/cadastro", validateCadastro, async (req, res) => {
     try {
       const body = req.body;
+      console.log("body", body);
       const cadastroPayload: CadastroBody = {
         name: body.name,
         email: body.email,
@@ -15,6 +16,7 @@ export function routes(app: Express): void {
       await cadastro(cadastroPayload);
       res.send("Cadastro realizado com sucesso.");
     } catch (error) {
+      console.log("error", error);
       res.status(500).send(`Não foi possível realizar cadastro. ${error}`);
     }
   });

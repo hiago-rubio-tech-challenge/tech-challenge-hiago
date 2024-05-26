@@ -20,10 +20,8 @@ export function combineSwaggerDocuments(files: string[]): SwaggerDocument {
       readFileSync(files[i], "utf8")
     );
 
-    // Junte os caminhos
     Object.assign(combinedDocument.paths, currentDocument.paths);
 
-    // Junte os componentes (se existirem)
     if (currentDocument.components) {
       if (!combinedDocument.components) {
         combinedDocument.components = {};
@@ -37,7 +35,6 @@ export function combineSwaggerDocuments(files: string[]): SwaggerDocument {
       );
     }
 
-    // Junte as tags (se existirem)
     if (currentDocument.tags) {
       if (!combinedDocument.tags) {
         combinedDocument.tags = [];
@@ -61,6 +58,7 @@ export function swaggerSetup(app: Express): void {
       combineSwaggerDocuments([
         "src/admin/application/adapters/in/docs/swagger.json",
         "src/pedido/application/adapters/in/docs/swagger.json",
+        "src/identificacao/application/adapters/in/docs/swagger.json",
       ]),
       options
     )
