@@ -50,11 +50,6 @@
       "Pedido": {}
     }
   },
-  "info": {
-    "description": "API para gerenciamento de pedidos",
-    "title": "API de Pedidos",
-    "version": "1.0.0"
-  },
   "openapi": "3.1.0",
   "paths": {
     "/pedido": {

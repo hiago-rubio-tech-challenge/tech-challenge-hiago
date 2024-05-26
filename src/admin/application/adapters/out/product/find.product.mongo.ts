@@ -11,8 +11,10 @@ export const findProductMongo = async (
     COLLECTION_NAMES_ENUM.products
   );
 
-  const newProduct = await collection.find({ ...filter, deleted: false });
+  const product = await collection
+    .find({ ...filter, deleted: { $ne: false } })
+    .toArray();
 
-  if (!newProduct) throw new Error("Inclusão de produto falhou!");
-  return newProduct.toArray();
+  if (!product) throw new Error("Busca de produto falhou!");
+  return product;
 };

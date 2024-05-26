@@ -15,13 +15,17 @@ import { ProductCategories } from "../../../../shared/domain/enums";
 export function routes(app: Express): void {
   app.get("/admin/products/:category", async (req: Request, res: Response) => {
     const { category } = req.params;
-    if (!(category in ProductCategories)) {
+    if (!Object.values(ProductCategories).find((cat) => cat === category)) {
       res.status(400).send({ error: "Categoria inválida" });
       return;
     }
     try {
       const products = await getProductByCategory(category);
-      res.status(200).send(products);
+      if (!products.length) {
+        res.status(404).send({ error: "Nenhum produto encontrado." });
+      } else {
+        res.status(200).send(products);
+      }
     } catch (error) {
       res.status(500).send({ error });
     }

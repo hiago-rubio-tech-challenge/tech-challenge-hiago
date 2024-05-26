@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { ProductCategories } from "../../../../../shared/domain/enums";
+import { NextFunction, Request, Response } from "express";
 
 export interface CreateProductBody {
   name: string;
@@ -9,12 +10,27 @@ export interface CreateProductBody {
 
 const productSchema = Joi.object({
   name: Joi.string().required(),
-  category: Joi.string().required(),
+  category: Joi.string()
+    .required()
+    .valid(...Object.values(ProductCategories))
+    .required(),
   price: Joi.number().required(),
 });
 
-export function validateCreateProduct(body: CreateProductBody) {
-  return productSchema.validate(body);
+export function validateCreateProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const body = req.body;
+  const { error } = productSchema.validate(body);
+  if (error) {
+    res
+      .status(400)
+      .send("Não foi possível cadastrar o produto. Error: Dados inválidos.");
+  } else {
+    next();
+  }
 }
 
 export interface UpdateProductBody {
@@ -26,13 +42,27 @@ export interface UpdateProductBody {
 
 const updateProductSchema = Joi.object({
   id: Joi.string().required(),
-  name: Joi.string().required(),
-  category: Joi.string().required().valid(Object.values(ProductCategories)),
-  price: Joi.number().required(),
+  name: Joi.string(),
+  category: Joi.string().valid(...Object.values(ProductCategories)),
+  price: Joi.number(),
 });
 
-export function validateUpdateProduct(body: UpdateProductBody) {
-  return updateProductSchema.validate(body);
+export function validateUpdateProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const body = req.body;
+  const { error } = updateProductSchema.validate(body);
+  if (error) {
+    res
+      .status(400)
+      .send(
+        "Não foi possível atualizar cadastrar o produto. Error: Dados inválidos."
+      );
+  } else {
+    next();
+  }
 }
 
 export interface DeleteProductBody {
@@ -43,6 +73,20 @@ const deleteProductSchema = Joi.object({
   id: Joi.string().required(),
 });
 
-export function validateDeleteProduct(body: DeleteProductBody) {
-  return deleteProductSchema.validate(body);
+export function validateDeleteProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const body = req.body;
+  const { error } = deleteProductSchema.validate(body);
+  if (error) {
+    res
+      .status(400)
+      .send(
+        "Não foi possível atualizar cadastrar o produto. Error: Dados inválidos."
+      );
+  } else {
+    next();
+  }
 }

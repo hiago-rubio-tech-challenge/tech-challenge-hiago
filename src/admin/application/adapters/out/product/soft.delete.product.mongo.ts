@@ -5,11 +5,11 @@ import { ProductSchema } from "../../../../domain/model/product";
 export async function softDeleteProductMongo(id: string) {
   const db = getDb();
   const collection = db.collection<ProductSchema>(
-    COLLECTION_NAMES_ENUM.clients
+    COLLECTION_NAMES_ENUM.products
   );
 
   const result = await collection.updateOne(
-    { _id: id },
+    { id: id },
     {
       $set: {
         deleted: true,

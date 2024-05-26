@@ -1,17 +1,56 @@
 {
   "components": {
     "schemas": {
-      "Error": {
+      "CreateProductBody": {
         "properties": {
-          "error": {
+          "category": {
+            "enum": ["Lanches", "Bebidas", "Acompanhamentos", "Sobremesas"],
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        },
+        "required": ["name", "category", "price"],
+        "type": "object"
+      },
+      "DeleteProductBody": {
+        "properties": {
+          "id": {
             "type": "string"
           }
         },
+        "required": ["id"],
         "type": "object"
       },
       "Product": {
         "properties": {
           "category": {
+            "example": "Lanches",
+            "type": "string"
+          },
+          "id": {
+            "example": "60d21b4667d0d8992e610c85",
+            "type": "string"
+          },
+          "name": {
+            "example": "Hambúrguer",
+            "type": "string"
+          },
+          "price": {
+            "example": 25.5,
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "UpdateProductBody": {
+        "properties": {
+          "category": {
+            "enum": ["Lanches", "Bebidas", "Acompanhamentos", "Sobremesas"],
             "type": "string"
           },
           "id": {
@@ -24,31 +63,25 @@
             "type": "number"
           }
         },
+        "required": ["id", "name", "category", "price"],
         "type": "object"
       }
     }
   },
   "info": {
-    "description": "Administração de produtos",
-    "title": "API de Administração de Produtos",
+    "title": "Admin Products API",
     "version": "1.0.0"
   },
   "openapi": "3.1.0",
   "paths": {
     "/admin/products": {
       "delete": {
-        "description": "Exclui um produto existente",
+        "description": "Delete a product from the inventory.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "id": {
-                    "description": "ID do produto a ser excluído",
-                    "type": "string"
-                  }
-                },
-                "type": "object"
+                "$ref": "#/components/schemas/DeleteProductBody"
               }
             }
           },
@@ -63,29 +96,34 @@
                 }
               }
             },
-            "description": "Produto excluído com sucesso"
+            "description": "Product deleted successfully"
           },
           "500": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
-            "description": "Erro interno do servidor"
+            "description": "Server error"
           }
         },
-        "summary": "Excluir um produto",
-        "tags": ["admin"]
+        "summary": "Delete a product",
+        "tags": ["Products"]
       },
       "patch": {
-        "description": "Atualiza as informações de um produto existente",
+        "description": "Update details of an existing product.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Product"
+                "$ref": "#/components/schemas/UpdateProductBody"
               }
             }
           },
@@ -100,29 +138,34 @@
                 }
               }
             },
-            "description": "Produto atualizado com sucesso"
+            "description": "Product updated successfully"
           },
           "500": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
-            "description": "Erro interno do servidor"
+            "description": "Server error"
           }
         },
-        "summary": "Atualizar um produto",
-        "tags": ["admin"]
+        "summary": "Update an existing product",
+        "tags": ["Products"]
       },
       "post": {
-        "description": "Cria um novo produto",
+        "description": "Create a new product in the inventory.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Product"
+                "$ref": "#/components/schemas/CreateProductBody"
               }
             }
           },
@@ -137,33 +180,39 @@
                 }
               }
             },
-            "description": "Produto criado com sucesso"
+            "description": "Product created successfully"
           },
           "500": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
-            "description": "Erro interno do servidor"
+            "description": "Server error"
           }
         },
-        "summary": "Criar um novo produto",
-        "tags": ["admin"]
+        "summary": "Create a new product",
+        "tags": ["Products"]
       }
     },
     "/admin/products/{category}": {
       "get": {
-        "description": "Retorna uma lista de produtos para uma categoria específica",
+        "description": "Retrieve products by category.",
         "parameters": [
           {
-            "description": "Categoria do produto",
+            "description": "Category of the products",
             "in": "path",
             "name": "category",
             "required": true,
             "schema": {
+              "enum": ["Lanches", "Bebidas", "Acompanhamentos", "Sobremesas"],
               "type": "string"
             }
           }
@@ -180,44 +229,49 @@
                 }
               }
             },
-            "description": "Lista de produtos"
+            "description": "A list of products"
           },
           "400": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "properties": {
+                    "error": {
+                      "example": "Categoria inválida",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
-            "description": "Categoria inválida"
+            "description": "Invalid category"
           },
           "500": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
-            "description": "Erro interno do servidor"
+            "description": "Server error"
           }
         },
-        "summary": "Obter produtos por categoria",
-        "tags": ["admin"]
+        "summary": "Get products by category",
+        "tags": ["Products"]
       }
     }
   },
-  "servers": [
-    {
-      "description": "Servidor local",
-      "url": "http://localhost:3000"
-    }
-  ],
   "tags": [
     {
-      "description": "Operações de administração de produtos",
-      "name": "admin"
+      "description": "Endpoints relacionados aos produtos",
+      "name": "Products"
     }
   ]
 }

@@ -79,7 +79,8 @@
             "description": "Não foi possível realizar cadastro."
           }
         },
-        "summary": "Cadastro de usuário"
+        "summary": "Cadastro de usuário",
+        "tags": ["Identificação"]
       }
     },
     "/identificacao": {
@@ -124,8 +125,15 @@
             "description": "Não foi possível encontrar o cliente."
           }
         },
-        "summary": "Identificação de usuário"
+        "summary": "Identificação de usuário",
+        "tags": ["Identificação"]
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "description": "Api de identificação de usuário",
+      "name": "Identificação"
+    }
+  ]
 }

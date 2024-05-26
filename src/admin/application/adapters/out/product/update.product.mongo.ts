@@ -6,22 +6,20 @@ import { UpdateProductBody } from "../../in/schemas/admin.products.schemas";
 export const updateProductMongo = async (product: UpdateProductBody) => {
   const db = getDb();
   const collection = db.collection<ProductSchema>(
-    COLLECTION_NAMES_ENUM.clients
+    COLLECTION_NAMES_ENUM.products
   );
 
   const updatedProduct = {
-    $set: {
-      ...product,
-      updatedAt: new Date(),
-    },
-    id: product.id,
+    ...product,
+    updatedAt: new Date(),
   };
 
-  const result = await collection.updateOne(
-    { _id: product.id },
+  const result = await collection.findOneAndUpdate(
+    { id: product.id },
     {
-      updatedProduct,
-    }
+      $set: updatedProduct,
+    },
+    { returnDocument: "after" }
   );
 
   return result;
