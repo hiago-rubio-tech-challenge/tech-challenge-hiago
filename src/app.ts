@@ -1,3 +1,4 @@
+import "dotenv/config";
 import {
   expressStart,
   gracefulShutdown,
@@ -9,6 +10,7 @@ import {
 
 async function main() {
   try {
+    console.log("client");
     const { client } = await connectMongo();
     const app = await expressStart();
 

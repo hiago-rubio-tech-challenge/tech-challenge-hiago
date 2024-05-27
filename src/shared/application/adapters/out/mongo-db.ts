@@ -1,13 +1,14 @@
 import { MongoClient, Db } from "mongodb";
 
-const url = "mongodb://localhost:27017";
-const dbName = "techChallenge";
-
 let client: MongoClient | null = null;
 let db: Db | null = null;
 
 export async function connectMongo() {
+  const url = process.env.MONGO_URL || "mongodb://localhost:27017";
+
+  const dbName = "techChallenge";
   if (!client || !db) {
+    console.log("URL do MongoDB:", url);
     client = new MongoClient(url);
 
     try {
