@@ -9,13 +9,21 @@
 
 ## Execução
 
-1. Clone o repositório do projeto em sua máquina local:
+1.  Clone o repositório do projeto em sua máquina local:
+
+ssh:
 
 ```bash
-git clone <URL_DO_REPOSITÓRIO>
+git clone git@github.com:hiagorubio/tech-challenge-hiago.git
 ```
 
-2. Acessa a pasta do arquivo:
+https:
+
+```bash
+git clone https://github.com/hiagorubio/tech-challenge-hiago.git
+```
+
+1. Acessa a pasta do arquivo:
 
 ```bash
 cd tech-challenge-hiago
