@@ -49,7 +49,7 @@ docker run -d --name mongodb -p 27017:27017 mongo:latest
 npm run dev
 ```
 
-1.
+1.Acesse http://localhost:3000/api-docs
 
 # Documentação das APIs
 
