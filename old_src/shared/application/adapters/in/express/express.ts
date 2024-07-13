@@ -6,8 +6,6 @@ import { routes as adminRoutes } from "../../../../../admin/application/adapters
 import { routes as pedidoRoutes } from "../../../../../pedido/application/adapters/in/route";
 import { swaggerSetup } from "./docs/swagger.setup";
 
-const app = express();
-
 export async function expressStart() {
   const app = express();
   const port = 3000;

@@ -1,14 +1,16 @@
-import { Db } from "mongodb";
 import { Cliente } from "../entitites";
-import { COLLECTION_NAMES_ENUM } from "../enums";
 import { ICadastroCliente } from "../interfaces/ICadastroCliente";
-import { IClienteRepository } from "../src/gateways/IClienteRepository";
+import { MongoClientWrapper } from "../db/MongoCliente";
+import { COLLECTION_NAMES_ENUM } from "../enums";
+import { Db } from "mongodb";
 
-export class InMemoryCustomerRepository implements IClienteRepository {
-  db: Db;
-  constructor(db: Db) {
-    this.db = db;
-  }
+export interface IClienteRepository {
+  consultaClienteCpfMongo(cpf: string): Promise<Cliente | null>;
+  cadastroClienteMongo(cadastro: ICadastroCliente): Promise<Cliente | null>;
+}
+
+export class ClienteRepository implements IClienteRepository {
+  constructor(private db: Db) {}
 
   async consultaClienteCpfMongo(cpf: string): Promise<Cliente | null> {
     const collection = this.db.collection(COLLECTION_NAMES_ENUM.clients);
