@@ -1,5 +1,5 @@
 import { ProductSchema } from "../../../admin/domain/model/product";
-import { ClientSchema } from "../../../identificacao/domain";
+import { ClientSchema } from "../../../DONE_identificacao/domain";
 
 export enum PedidosStatus {
   RECEBIDO = "RECEBIDO",

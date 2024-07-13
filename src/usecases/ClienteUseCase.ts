@@ -1,11 +1,11 @@
 import { Cliente } from "../entitites";
-import { IClienteRepository } from "../gateways/IClienteRepository";
-import { ICadastroCliente } from "../interfaces/ICadastroCliente";
+import { IClienteRepository } from "../gateways/ClienteRepository";
+import { ICreateCliente } from "../interfaces";
 
-export class CreateClienteUseCase {
+export class ClienteUseCase {
   constructor(private clienteRepository: IClienteRepository) {}
 
-  async execute(cadastro: ICadastroCliente): Promise<Cliente | null> {
+  async execute(cadastro: ICreateCliente): Promise<Cliente | null> {
     const cliente = await this.clienteRepository.consultaClienteCpfMongo(
       cadastro.cpf
     );

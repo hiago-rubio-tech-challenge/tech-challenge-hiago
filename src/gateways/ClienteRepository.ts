@@ -1,12 +1,11 @@
-import { Cliente } from "../entitites";
-import { ICadastroCliente } from "../interfaces/ICadastroCliente";
-import { MongoClientWrapper } from "../db/MongoCliente";
-import { COLLECTION_NAMES_ENUM } from "../enums";
 import { Db } from "mongodb";
+import { Cliente } from "../entitites";
+import { COLLECTION_NAMES_ENUM } from "../enums";
+import { ICreateCliente } from "../interfaces";
 
 export interface IClienteRepository {
   consultaClienteCpfMongo(cpf: string): Promise<Cliente | null>;
-  cadastroClienteMongo(cadastro: ICadastroCliente): Promise<Cliente | null>;
+  cadastroClienteMongo(cadastro: ICreateCliente): Promise<Cliente | null>;
 }
 
 export class ClienteRepository implements IClienteRepository {
@@ -19,7 +18,7 @@ export class ClienteRepository implements IClienteRepository {
   }
 
   async cadastroClienteMongo(
-    cadastro: ICadastroCliente
+    cadastro: ICreateCliente
   ): Promise<Cliente | null> {
     const collection = this.db.collection(COLLECTION_NAMES_ENUM.clients);
     const result = await collection.insertOne(cadastro);

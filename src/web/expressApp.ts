@@ -1,12 +1,13 @@
 import express from "express";
 import { Server } from "http";
-import identificacaoRouter from "./routes/identificacao/identificacaoRouter";
 import { Db } from "mongodb";
+import { adminRouter, identificacaoRouter } from "./routes";
 
 export const expressStart = async (port: number, db: Db) => {
   const app = express();
   app.use(express.json());
   identificacaoRouter(app, db);
+  adminRouter(app, db);
 
   return app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

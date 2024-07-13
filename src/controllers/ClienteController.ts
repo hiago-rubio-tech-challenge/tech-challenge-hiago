@@ -1,24 +1,22 @@
 import { Request, Response } from "express";
-import { ClienteRepository } from "../gateways/IClienteRepository";
-import { ICadastroCliente } from "../interfaces/ICadastroCliente";
-import { CreateClienteUseCase } from "../usecases/CreateClienteUseCase";
 import { Db } from "mongodb";
+import { ClienteRepository } from "../gateways/ClienteRepository";
+import { ClienteUseCase } from "../usecases/ClienteUseCase";
+import { ICreateCliente } from "../interfaces";
 
 export class ClienteController {
   private clienteRepository: ClienteRepository;
-  private createClienteUseCase: CreateClienteUseCase;
+  private ClienteUseCase: ClienteUseCase;
   constructor(private db: Db) {
     this.clienteRepository = new ClienteRepository(this.db);
-    this.createClienteUseCase = new CreateClienteUseCase(
-      this.clienteRepository
-    );
+    this.ClienteUseCase = new ClienteUseCase(this.clienteRepository);
   }
 
   async createCliente(
-    req: Request<any, any, ICadastroCliente>,
+    req: Request<any, any, ICreateCliente>,
     res: Response
   ): Promise<Response> {
-    const cliente = await this.createClienteUseCase.execute(req.body);
+    const cliente = await this.ClienteUseCase.execute(req.body);
 
     if (!cliente) {
       return res.status(400).json({ message: "Cliente já cadastrado" });
