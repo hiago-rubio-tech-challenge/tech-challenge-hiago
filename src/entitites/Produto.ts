@@ -1,6 +1,5 @@
 export class Produto {
   constructor(
-    public readonly _id: string,
     public id: string,
     public name: string,
     public category: string,
@@ -8,6 +7,7 @@ export class Produto {
     public createdAt: Date,
     public updatedAt: Date,
     public deleted?: boolean,
-    public deletedAt?: Date
+    public deletedAt?: Date,
+    public readonly _id?: string
   ) {}
 }

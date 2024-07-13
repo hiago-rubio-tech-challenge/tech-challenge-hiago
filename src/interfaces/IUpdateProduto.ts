@@ -1,4 +1,4 @@
-export interface UpdateProduto {
+export interface IUpdateProduto {
   id: string;
   name: string;
   category: string;
