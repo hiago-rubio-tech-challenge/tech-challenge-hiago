@@ -6,11 +6,15 @@ import { validateCadastro, validateIdentificacao } from "../schemas";
 export const identificacaoRouter = (app: Express, db: Db) => {
   const clienteController = new ClienteController(db);
   const router = Router();
-  router.post("/", validateCadastro, clienteController.createCliente);
+  router.post(
+    "/identificacao",
+    validateIdentificacao,
+    clienteController.identificacao.bind(clienteController)
+  );
   router.post(
     "/cadastro",
-    validateIdentificacao,
-    clienteController.identificacao
+    validateCadastro,
+    clienteController.createCliente.bind(clienteController)
   );
-  app.use("/identificacao", router);
+  app.use(router);
 };

@@ -1,5 +1,5 @@
 import { Cliente } from "../entitites";
-import { IClienteRepository } from "../gateways/ClienteRepository";
+import { ClienteRepository } from "../gateways/ClienteRepository";
 import { ICreateCliente } from "../interfaces";
 
 export interface IIdentificacaoUseCase {
@@ -8,7 +8,7 @@ export interface IIdentificacaoUseCase {
 }
 
 export class IdentificacaoUseCase implements IIdentificacaoUseCase {
-  constructor(private clienteRepository: IClienteRepository) {}
+  constructor(private clienteRepository: ClienteRepository) {}
 
   async createCliente(cadastro: ICreateCliente): Promise<Cliente | null> {
     const cliente = await this.clienteRepository.consultaClienteCpfMongo(

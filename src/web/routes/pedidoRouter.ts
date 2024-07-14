@@ -7,8 +7,12 @@ export const pedidoRouter = (app: Express, db: Db) => {
   const pedidoController = new PedidoController(db);
   const router = Router();
 
-  app.get("/checkout", validateCheckout, pedidoController.checkout);
-  app.patch("/pedido", pedidoController.listPedidos);
+  app.get(
+    "/checkout",
+    validateCheckout,
+    pedidoController.checkout.bind(pedidoController)
+  );
+  app.patch("/pedido", pedidoController.listPedidos.bind(pedidoController));
 
   app.use("/pedido", router);
 };
