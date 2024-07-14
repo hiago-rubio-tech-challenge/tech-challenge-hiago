@@ -10,21 +10,24 @@ import {
 export const adminRouter = (app: Express, db: Db) => {
   const adminController = new AdminController(db);
   const router = Router();
-  app.get("/products/:category", adminController.getProdutosByCategory);
+  app.get(
+    "/admin/products/:category",
+    adminController.getProdutosByCategory.bind(adminController)
+  );
   app.patch(
-    "/products",
+    "/admin/products",
     validateUpdateProduto,
     adminController.updateProduto.bind(adminController)
   );
   app.delete(
-    "/products",
+    "/admin/products",
     validateDeleteProduto,
     adminController.deleteProduto.bind(adminController)
   );
   app.post(
-    "/products",
+    "/admin/products",
     validateCreateProduto,
     adminController.createProduto.bind(adminController)
   );
-  app.use("/admin", router);
+  app.use(router);
 };

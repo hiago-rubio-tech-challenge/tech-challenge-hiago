@@ -15,14 +15,12 @@ export interface IAdminRepository {
 export class AdminRepository implements IAdminRepository {
   private collection: Collection<Produto>;
 
-  constructor(private db: Db) {
-    this.collection = this.db.collection<Produto>(
-      COLLECTION_NAMES_ENUM.products
-    );
+  constructor(db: Db) {
+    this.collection = db.collection<Produto>(COLLECTION_NAMES_ENUM.products);
   }
 
   async findProdutoByCategory(category: ProdutoCategories) {
-    return this.collection
+    return await this.collection
       .find({ category, deleted: { $ne: false } })
       .toArray();
   }
