@@ -3,10 +3,10 @@ import { Produto } from "../entitites/Produto";
 import { COLLECTION_NAMES_ENUM } from "../enums";
 import { ICreateProduto, IUpdateProduto } from "../interfaces";
 import { randomUUID } from "crypto";
-import { ProductCategories } from "../entitites/ProdutoCategories";
+import { ProdutoCategories } from "../entitites/ProdutoCategories";
 
 export interface IAdminRepository {
-  findProdutoByCategory(category: ProductCategories): Promise<Produto[] | null>;
+  findProdutoByCategory(category: ProdutoCategories): Promise<Produto[] | null>;
   createProduto(produto: ICreateProduto): Promise<Produto>;
   updateProduto(produto: IUpdateProduto): Promise<Produto | null>;
   deleteProduto(id: string): Promise<Boolean>;
@@ -21,7 +21,7 @@ export class AdminRepository implements IAdminRepository {
     );
   }
 
-  async findProdutoByCategory(category: ProductCategories) {
+  async findProdutoByCategory(category: ProdutoCategories) {
     return this.collection
       .find({ category, deleted: { $ne: false } })
       .toArray();

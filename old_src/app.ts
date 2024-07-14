@@ -2,11 +2,11 @@ import "dotenv/config";
 import {
   expressStart,
   gracefulShutdown,
-} from "./shared/application/adapters/in/express/express";
+} from "./DONE_shared/application/adapters/in/express/express";
 import {
   closeMongo,
   connectMongo,
-} from "./shared/application/adapters/out/mongo-db";
+} from "./DONE_shared/application/adapters/out/mongo-db";
 
 async function main() {
   try {

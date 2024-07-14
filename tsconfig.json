@@ -7,5 +7,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["old_src/**/*.json", "old_src/**/*.ts"]
+  "include": [
+    "old_src/**/*.json",
+    "old_src/**/*.ts",
+    "src/web/schemas/checkoutSchema.ts"
+  ]
 }

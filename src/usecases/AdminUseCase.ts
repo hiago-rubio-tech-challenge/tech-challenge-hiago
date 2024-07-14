@@ -1,5 +1,5 @@
 import { Produto } from "../entitites/Produto";
-import { ProductCategories } from "../entitites/ProdutoCategories";
+import { ProdutoCategories } from "../entitites/ProdutoCategories";
 import { IAdminRepository } from "../gateways/AdminRepository";
 import { ICreateProduto, IUpdateProduto } from "../interfaces";
 
@@ -7,7 +7,7 @@ export class AdminUseCase {
   constructor(private adminRepository: IAdminRepository) {}
 
   async findProdutoByCategory(
-    category: ProductCategories
+    category: ProdutoCategories
   ): Promise<Produto[] | null> {
     return this.adminRepository.findProdutoByCategory(category);
   }

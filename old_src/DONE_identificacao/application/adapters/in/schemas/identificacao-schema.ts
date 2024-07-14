@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { cpfValidation } from "../../../../../shared/application/adapters/schemas/cpf.validation";
+import { cpfValidation } from "../../../../../DONE_shared/application/adapters/schemas/cpf.validation";
 import { NextFunction, Request, Response } from "express";
 
 export interface IdentificacaoSchema {

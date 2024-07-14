@@ -1,2 +1,2 @@
 export * from "./AdminUseCase";
-export * from "./ClienteUseCase";
+export * from "./IdentificacaoUseCase";

@@ -1,4 +1,4 @@
-export enum ProductCategories {
+export enum ProdutoCategories {
   LANCHES = "Lanches",
   BEBIDAS = "Bebidas",
   ACOMPANHAMENTOS = "Acompanhamentos",

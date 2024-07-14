@@ -1,13 +1,16 @@
 import express from "express";
 import { Server } from "http";
 import { Db } from "mongodb";
-import { adminRouter, identificacaoRouter } from "./routes";
+import { adminRouter, identificacaoRouter, pedidoRouter } from "./routes";
+import { swaggerSetup } from "./swaggerSetup";
 
 export const expressStart = async (port: number, db: Db) => {
   const app = express();
   app.use(express.json());
   identificacaoRouter(app, db);
   adminRouter(app, db);
+  pedidoRouter(app, db);
+  swaggerSetup(app);
 
   return app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
