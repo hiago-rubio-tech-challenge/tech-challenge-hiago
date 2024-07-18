@@ -16,4 +16,8 @@ export class PedidoUseCase implements IPedidoUseCase {
   async listPedidos(status: PedidosStatus): Promise<Pedido[] | null> {
     return this.pedidoRepository.listPedidos({ status });
   }
+
+  // async consultaStatusPedido(id: string): Promise<Pedido | null> {
+  //   //TODO - Implementar
+  // }
 }

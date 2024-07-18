@@ -6,6 +6,7 @@ export class MongoClientWrapper {
   private db: Db | null = null;
 
   constructor() {
+    console.log("process.env.MONGO_URL", process.env.MONGO_URL);
     this.client = new MongoClient(
       process.env.MONGO_URL || "mongodb://localhost:27017"
     );
