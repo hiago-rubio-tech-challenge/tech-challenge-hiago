@@ -7,6 +7,10 @@ import { randomUUID } from "crypto";
 export interface IPedidoRepository {
   checkout(body: ICheckoutBody): Promise<Pedido>;
   listPedidos(filter: Filter<Pedido>): Promise<Pedido[] | null>;
+  updatePedidoStatus(
+    pedidoId: string,
+    status: PedidosStatus
+  ): Promise<Pedido | null>;
 }
 
 export class PedidoRepository implements IPedidoRepository {
@@ -14,6 +18,12 @@ export class PedidoRepository implements IPedidoRepository {
 
   constructor(private db: Db) {
     this.collection = this.db.collection<Pedido>(COLLECTION_NAMES_ENUM.pedidos);
+  }
+  updatePedidoStatus(
+    pedidoId: string,
+    status: PedidosStatus
+  ): Promise<Pedido | null> {
+    throw new Error("Method not implemented.");
   }
 
   async checkout(pedido: ICheckoutBody): Promise<Pedido> {
@@ -23,6 +33,10 @@ export class PedidoRepository implements IPedidoRepository {
       createdAt: new Date(),
       updatedAt: new Date(),
       status: PedidosStatus.RECEBIDO,
+      client: {
+        name: pedido.client.name,
+        id: pedido.client.id,
+      },
     });
 
     const newPedido = await this.collection.findOne<Pedido>({

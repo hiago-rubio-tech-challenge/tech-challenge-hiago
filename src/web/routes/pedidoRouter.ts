@@ -13,6 +13,14 @@ export const pedidoRouter = (app: Express, db: Db) => {
     pedidoController.checkout.bind(pedidoController)
   );
   app.get("/pedido", pedidoController.listPedidos.bind(pedidoController));
+  app.get(
+    "/pedido/:id/payment-status",
+    pedidoController.getPaymentStatus.bind(pedidoController)
+  );
+  app.post(
+    "/pedido/payment/webhook",
+    pedidoController.paymentWebhook.bind(pedidoController)
+  );
 
   app.use(router);
 };

@@ -1,5 +1,129 @@
 # Tech Challenge Pós Tech Fiap
 
+# Fase II
+
+# Arquitetura do Projeto
+
+Abaixo temos o entregável 3 do tech challenge, sendo o desenho da arquitetura de negócio e o desenho da arquitetura de infraestrutura
+
+## Arquitetura de negócio
+
+## Arquitetura de infraestrutura
+
+![alt text](image.png)
+
+[Link do miro](https://miro.com/app/board/uXjVKMS64KM=/?moveToWidget=3458764594688140656&cot=14)
+
+# Como Executar o Projeto
+
+## Pré-requisitos
+
+1. Antes de começar, certifique-se de que você possui os seguintes itens instalados no seu PC:
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+
+### 1. Instalar Docker
+
+Siga as instruções no [site oficial do Docker](https://docs.docker.com/get-docker/) para instalar o Docker em seu sistema operacional.
+
+### 2. Instalar kubectl
+
+Baixe o kubectl a partir do [site oficial do Kubernetes](https://kubernetes.io/docs/tasks/tools/install-kubectl/) e siga as instruções de instalação para o seu sistema operacional.
+
+### 3. Instalar Minikube
+
+Siga as instruções no [site oficial do Minikube](https://minikube.sigs.k8s.io/docs/start/) para instalar o Minikube em seu sistema operacional.
+
+### 4. Iniciar Minikube
+
+Após instalar o Minikube, inicie um cluster Kubernetes com o comando:
+
+```sh
+minikube start
+```
+
+### 5. Configurar kubectl para usar o Minikube
+
+Verifique se o kubectl está configurado para usar o Minikube:
+
+```sh
+kubectl config use-context minikube
+```
+
+### 6. Criar Namespace
+
+Crie um namespace chamado tech-challenge-namespace:
+
+```sh
+kubectl create namespace  tech-challenge-namespace
+```
+
+### 7. Clone este repositório em sua máquina local.
+
+via ssh
+
+```
+git clone git@github.com:hiagorubio/tech-challenge-hiago.git
+```
+
+ou via http
+
+```
+git clone git@github.com:hiagorubio/tech-challenge-hiago.git
+```
+
+### 8. Navegue até o diretório raiz do projeto.
+
+```
+cd {sua-pasta-onde-foi-clonado}/tech-challenge-hiago
+```
+
+### 9. Execute o comando abaixo para configurar o kubernets.
+
+Esse comando cria toda a infraestrutura necessária, o desenho da arquitetura está no item [Arquitetura de infraestrutura](##-Arquitetura-de-infraestrutura)
+
+```
+kubectl apply -f k8s
+```
+
+### 10. Verifique se todos os pods estão em execução
+
+```
+kubectl get pods -n my-namespace
+```
+
+### 11. Faça o port-foward para expor a serviço do backend
+
+Abra um terminal e rode o seguinte comando:
+
+```
+kubectl port-forward svc/nodejs-service 3000:3000 -n
+```
+
+### 12. As APIs estarão disponíveis nos seguintes URLs:
+
+- Cadastro de Usuário: http://localhost:3000/cadastro
+- Identificação do Cliente: http://localhost:3000/identificacao
+- Listagem de Produtos: http://localhost:3000/admin/products/:category
+- Atualização de Produto: PATCH http://localhost:3000/admin/products
+- Exclusão de Produto: DELETE http://localhost:3000/admin/products
+- Checkout de Pedido: http://localhost:3000/pedido/checkout
+- Listagem de Pedidos: http://localhost:3000/pedido
+
+### [Opcional] 13. Caso queira checar a criação dos dados no mongo
+
+Abra outro terminal e execute o seguinte comando:
+
+```sh
+kubectl port-forward svc/mongo-express 8081:8081 -n my-namespace
+```
+
+Isso fará com que o [Mongo-Express](https://github.com/mongo-express/mongo-express) esteja acessível localmente em http://localhost:8081.
+
+<!-- # Itens da fase I
+
 # Como Rodar o Projeto com Docker Compose
 
 ## Requisitos
@@ -220,21 +344,4 @@ Este endpoint é usado para listar pedidos com base em um status.
 #### Respostas:
 
 - 200 OK: Retorna uma lista de pedidos com base no status especificado.
-- 500 Internal Server Error: Se ocorrer um erro durante a listagem dos pedidos.
-
-## Como Executar o Projeto
-
-1. Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
-2. Clone este repositório em sua máquina local.
-3. Navegue até o diretório raiz do projeto.
-4. Execute o comando `docker-compose up -d` para iniciar os serviços.
-5. As APIs estarão disponíveis nos seguintes URLs:
-   - Cadastro de Usuário: http://localhost:3000/cadastro
-   - Identificação do Cliente: http://localhost:3000/identificacao
-   - Listagem de Produtos: http://localhost:3000/admin/products/:category
-   - Atualização de Produto: PATCH http://localhost:3000/admin/products
-   - Exclusão de Produto: DELETE http://localhost:3000/admin/products
-   - Checkout de Pedido: http://localhost:3000/pedido/checkout
-   - Listagem de Pedidos: http://localhost:3000/pedido
-
-Este é apenas um exemplo básico de documentação das APIs. Você pode personalizá-lo conforme necessário, incluindo informações adicionais sobre autenticação, autorização, tipos de dados aceitos e muito mais.
+- 500 Internal Server Error: Se ocorrer um erro durante a listagem dos pedidos. -->
