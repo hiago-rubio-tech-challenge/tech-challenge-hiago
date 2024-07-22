@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { PedidosStatus } from "./PedidoStatus";
 
 export class Pedido {
@@ -18,6 +19,6 @@ export class Pedido {
     }[],
     public createdAt: Date,
     public updatedAt: Date,
-    public _id?: string
+    public _id?: ObjectId
   ) {}
 }

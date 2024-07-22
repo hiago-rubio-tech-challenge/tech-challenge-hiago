@@ -52,11 +52,18 @@ export class PedidoController {
 
   public paymentWebhook = async (req: Request, res: Response) => {
     try {
-      const { id } = req.body;
-      // const pedido = await this.pedidoUseCase.findPedido(id);
-      res.status(200).send();
+      const body = req.body;
+      if (body.action !== "payment.updated" || body.type !== "payment") {
+        return res.status(500).send();
+      }
+      const { id } = body.data;
+      if (!id) {
+        throw new Error("Id not found");
+      }
+      await this.pedidoUseCase.checkPaymentAndUpdateStatus(id as string);
+      return res.status(200).send();
     } catch (error) {
-      res.status(500).send({ error });
+      return res.status(500).send();
     }
   };
 }

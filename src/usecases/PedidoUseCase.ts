@@ -27,10 +27,10 @@ export class PedidoUseCase implements IPedidoUseCase {
   }
 
   async checkPaymentAndUpdateStatus(pedidoId: string): Promise<Pedido | null> {
-    const pedido = this.pedidoRepository.updatePedidoStatus(
+    const updatedPedido = await this.pedidoRepository.updatePedidoStatus(
       pedidoId,
       PedidosStatus.EM_PREPARO
     );
-    return pedido;
+    return updatedPedido;
   }
 }
