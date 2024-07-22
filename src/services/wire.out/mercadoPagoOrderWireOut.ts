@@ -23,7 +23,7 @@ export const mercadoPagoOrderWireOut = (pedido: Pedido): MercadoPagoOrder => {
       amount: 0,
     },
     description: `Pedido id: ${pedido.id} do cliente ${pedido.client.name}`,
-    external_reference: pedido.id,
+    external_reference: String(pedido._id),
     items: wireProducts(pedido.products),
     notification_url: "http://www.yourserver.com/notification",
     title: `Pedido id: ${pedido.id}`,
