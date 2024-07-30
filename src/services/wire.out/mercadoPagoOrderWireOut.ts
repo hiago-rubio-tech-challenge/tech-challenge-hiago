@@ -4,9 +4,18 @@ import {
   MercadoPagoOrderItens,
 } from "../interfaces/mercadoPagoOrder";
 
-const wireProducts = (
-  products: { id: string; name: string; category: string; price: number }[]
-): MercadoPagoOrderItens[] => {
+interface PedidoProduto {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+}
+
+const calcTotalAmount = (products: PedidoProduto[]): number => {
+  return products.reduce((acc, product) => acc + product.price, 0);
+};
+
+const wireProducts = (products: PedidoProduto[]): MercadoPagoOrderItens[] => {
   return products.map((product) => ({
     sku_number: product.id,
     category: product.category,
@@ -14,6 +23,7 @@ const wireProducts = (
     unit_price: product.price,
     quantity: 1,
     total_amount: product.price,
+    unit_measure: "unit",
   }));
 };
 
@@ -25,8 +35,9 @@ export const mercadoPagoOrderWireOut = (pedido: Pedido): MercadoPagoOrder => {
     description: `Pedido id: ${pedido.id} do cliente ${pedido.client.name}`,
     external_reference: String(pedido._id),
     items: wireProducts(pedido.products),
-    notification_url: "http://www.yourserver.com/notification",
+    notification_url:
+      "https://0b6e-179-198-30-227.ngrok-free.app/pedido/payment/webhook",
     title: `Pedido id: ${pedido.id}`,
-    total_amount: pedido.totalValue,
+    total_amount: calcTotalAmount(pedido.products),
   };
 };

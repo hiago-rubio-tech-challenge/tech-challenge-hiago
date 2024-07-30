@@ -2,6 +2,10 @@
 
 # Fase II
 
+## Link do Vídeo
+
+https://youtu.be/rC-bWRvodd8
+
 # Arquitetura do Projeto
 
 Abaixo temos o entregável 3 do tech challenge, sendo o desenho da arquitetura de negócio e o desenho da arquitetura de infraestrutura
@@ -91,7 +95,7 @@ kubectl apply -f k8s
 ### 10. Verifique se todos os pods estão em execução
 
 ```
-kubectl get pods -n my-namespace
+kubectl get pods -n tech-challenge-namespace
 ```
 
 ### 11. Faça o port-foward para expor a serviço do backend
@@ -117,7 +121,7 @@ kubectl port-forward svc/nodejs-service 3000:3000 -n
 Abra outro terminal e execute o seguinte comando:
 
 ```sh
-kubectl port-forward svc/mongo-express 8081:8081 -n my-namespace
+kubectl port-forward svc/mongo-express 8081:8081 -n tech-challenge-hiago
 ```
 
 Isso fará com que o [Mongo-Express](https://github.com/mongo-express/mongo-express) esteja acessível localmente em http://localhost:8081.
