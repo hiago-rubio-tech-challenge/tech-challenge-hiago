@@ -9,16 +9,19 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-RUN find . -type f -name '*.json' -exec mkdir -p dist/"$(dirname {})" \; -exec cp {} dist/"{}" \;
+ARG MONGO_URL
+ENV MONGO_URL=${MONGO_URL}
 
 # Etapa de produção
 FROM node:alpine
 
 WORKDIR /usr/src/app
 
+ARG MONGO_URL
+ENV MONGO_URL=${MONGO_URL}
 COPY --from=build /usr/src/app/package.json ./
 COPY --from=build /usr/src/app/dist ./dist
-RUN npm install --only=production
+RUN npm install --omit=dev
 
 RUN echo "starting the app"
 
