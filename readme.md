@@ -1,6 +1,69 @@
 # Tech Challenge Pós Tech Fiap
 
-# Fase II
+# FASE III
+
+### Link do vídeo
+
+### Link dos projetos
+
+## ARQUITETURA DO PROJETO
+
+### Arquitetura Autenticação do cliente
+
+Essa arquitetura serverless utiliza serviços da AWS para criar um sistema de autenticação e registro de usuários. O API Gateway serve como a interface HTTP, recebendo requisições nas rotas /auth/login e /auth/register e direcionando-as para as funções AWS Lambda, que são responsáveis por processar o login e o registro. O código dessas funções é armazenado em um bucket S3, que permite a atualização e gerenciamento das funções sem a necessidade de servidores dedicados.
+
+A autenticação dos usuários é feita pelo AWS Cognito, que gerencia o pool de usuários, incluindo dados como CPF, email e nome. O Lambda usa variáveis de ambiente para se integrar ao Cognito, garantindo a autenticação segura dos usuários. As permissões e acessos são controlados por funções do IAM, que asseguram que cada serviço tenha as permissões adequadas para se comunicar de forma segura e eficiente, como o Lambda acessando o S3 e o API Gateway invocando funções Lambda.
+
+![Lambda + Api Gateway](image-1.png)
+
+### Arquitetura de infraestrutura
+
+Essa arquitetura, implementada em Terraform, provisiona um ambiente completo de Amazon EKS (Elastic Kubernetes Service) em uma VPC (Virtual Private Cloud) personalizada, com o objetivo de rodar uma aplicação Node.js integrada com um banco de dados MongoDB (Mongo Atlas como um database as service). O projeto inclui a criação de subnets públicas e privadas, onde as subnets públicas são conectadas diretamente à internet através de um Internet Gateway para permitir a exposição de serviços públicos, enquanto as subnets privadas utilizam um NAT Gateway para habilitar a comunicação de saída segura sem exposição direta à internet. O cluster EKS é configurado com Fargate para permitir a execução de pods em uma arquitetura serverless, além de um Node Group dedicado que realiza o processamento de cargas de trabalho e oferece maior controle sobre os nós que compõem o cluster.
+
+Dentro do ambiente Kubernetes gerenciado pelo EKS, o projeto entrega uma implementação completa de CI/CD, incluindo o deployment de uma aplicação Node.js. A aplicação é exposta externamente via um serviço LoadBalancer e está protegida por uma Network Policy, garantindo que o tráfego de entrada e saída seja devidamente controlado. Um Horizontal Pod Autoscaler (HPA) foi configurado para gerenciar a escalabilidade automática da aplicação, ajustando o número de réplicas conforme a demanda de CPU, garantindo performance e eficiência. Todo o ambiente foi projetado com foco em alta disponibilidade, segurança e escalabilidade, com suporte completo para operações em um ambiente de produção distribuído.
+
+![alt text](image-2.png)
+
+### Arquitetura do banco de dados
+
+A arquitetura do banco de dados para o projeto foi projetada utilizando MongoDB Atlas, uma plataforma de banco de dados como serviço (DBaaS) que oferece uma solução escalável, segura e de alto desempenho para o armazenamento de dados. A seguir, são apresentados os componentes e características principais dessa arquitetura, alinhados aos códigos e estrutura utilizados no projeto.
+
+![alt text](image-3.png)
+
+#### Cluster MongoDB Atlas
+
+O projeto foi criado utilizando um cluster MongoDB Atlas na mesma região do cluster EKS. A descição de uso do cluster MongoDB Atlas é relativo as vantagens de possuir uma versão gratuita, fácil gestão de acesso via IAM policy com o cluster EKS (No momento não foi criada devido ao usuário da conta de testes não poder criar recursos IAM). A fácil integração a plataforma NodeJs escolhida para o projeto ajudou na descição.
+
+Pela simplicidade dos requisitos do projeto o modelo NoSQL atende a todos os requisitos, foram utilizados os principios de modelos de documentos, utilizando as coleções do mongo e o armazenamento hierarquico dos dados, por exemplo usuario -> transacoes, transacoes => produtos. Tornando fácil a consulta e permitindo todo fluxo do projeto.O esquema fléxivel permite alterações no esquema de dados de forma rápida e fácil, o que é muito útil quando precisamos adaptar a aplicação às mudanças de requisitos. Além disso, como o MongoDB Atlas é uma solução gerenciada, não precisamos nos preocupar com a manutenção da infraestrutura, permitindo que a equipe se concentre em criar e melhorar a aplicação de forma mais eficiente.
+
+#### Estrutura de Dados
+
+O design do esquema foi otimizado para as operações específicas da aplicação, utilizando a flexibilidade do modelo de dados NoSQL do MongoDB. No projeto, a estrutura de dados é representada em documentos BSON, com o uso das seguintes coleções:
+
+##### Produtos:
+
+Armazena informações detalhadas sobre cada produto, incluindo nome, categoria, e preço.
+
+##### Usuários:
+
+Contém os dados dos usuários, como nome, email, e senha (armazenada de forma segura).
+
+##### Transações:
+
+Registra as operações realizadas pelos usuários, incluindo produto_id, usuario_id, e data.
+
+#### Monitoramento e Performance
+
+Performance Monitoring: O MongoDB Atlas fornece ferramentas de monitoramento em tempo real que permitem visualizar métricas de desempenho, como latência de consultas, utilização de CPU e IOPS. Essas métricas são essenciais para identificar gargalos e otimizar a performance do banco de dados.
+Alerts: Alertas foram configurados para notificar a equipe de desenvolvimento sobre quaisquer anomalias de performance ou disponibilidade, permitindo uma resposta rápida a potenciais problemas.
+
+#### Backup e Recuperação
+
+Backups Automáticos: O MongoDB Atlas realiza backups automáticos de forma regular, garantindo que os dados possam ser recuperados em caso de falhas ou perda de dados. A frequência e a retenção dos backups são configuráveis, permitindo atender às necessidades específicas do projeto.
+
+<!-- [alt text](image.png) -->
+
+<!-- # Fase II
 
 ## Link do Vídeo
 
@@ -14,7 +77,7 @@ Abaixo temos o entregável 3 do tech challenge, sendo o desenho da arquitetura d
 
 ## Arquitetura de infraestrutura
 
-![alt text](image.png)
+!
 
 [Link do miro](https://miro.com/app/board/uXjVKMS64KM=/?moveToWidget=3458764594688140656&cot=14)
 
@@ -124,7 +187,7 @@ Abra outro terminal e execute o seguinte comando:
 kubectl port-forward svc/mongo-express 8081:8081 -n tech-challenge-hiago
 ```
 
-Isso fará com que o [Mongo-Express](https://github.com/mongo-express/mongo-express) esteja acessível localmente em http://localhost:8081.
+Isso fará com que o [Mongo-Express](https://github.com/mongo-express/mongo-express) esteja acessível localmente em http://localhost:8081. -->
 
 <!-- # Itens da fase I
 

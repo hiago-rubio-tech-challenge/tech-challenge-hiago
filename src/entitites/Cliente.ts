@@ -12,3 +12,16 @@ export class Cliente {
     public updatedAt: Date
   ) {}
 }
+
+export class RegisterCliente {
+  constructor(
+    public name: string,
+    public cpf: string,
+    public username: string,
+    public password: string
+  ) {}
+}
+
+export class LoginCliente {
+  constructor(public username: string, public password: string) {}
+}

@@ -1,7 +1,4 @@
 import axios from "axios";
-import { randomUUID } from "crypto";
-import { MercadoPagoConfig, MerchantOrder, Payment } from "mercadopago";
-import { MerchantOrderCreateData } from "mercadopago/dist/clients/merchantOrder/create/types";
 import { Pedido } from "../entitites";
 import { mercadoPagoOrderWireOut } from "./wire.out/mercadoPagoOrderWireOut";
 

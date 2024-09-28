@@ -16,5 +16,6 @@ export const identificacaoRouter = (app: Express, db: Db) => {
     validateCadastro,
     clienteController.createCliente.bind(clienteController)
   );
+  router.post("/login", clienteController.login.bind(clienteController));
   app.use(router);
 };
