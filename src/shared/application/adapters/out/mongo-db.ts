@@ -4,11 +4,11 @@ let client: MongoClient | null = null;
 let db: Db | null = null;
 
 export async function connectMongo() {
-  const url = process.env.MONGO_URL || "mongodb://localhost:27017";
+  const url = process.env.MONGO_URL || "";
+  console.log("url", url);
 
   const dbName = "techChallenge";
   if (!client || !db) {
-    console.log("URL do MongoDB:", url);
     client = new MongoClient(url);
 
     try {
