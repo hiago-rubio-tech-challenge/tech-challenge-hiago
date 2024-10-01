@@ -59,7 +59,7 @@ Alerts: Alertas foram configurados para notificar a equipe de desenvolvimento so
 
 #### Backup e Recuperação
 
-Backups Automáticos: O MongoDB Atlas realiza backups automáticos de forma regular, garantindo que os dados possam ser recuperados em caso de falhas ou perda de dados. A frequência e a retenção dos backups são configuráveis, permitindo atender às necessidades específicas do projeto.
+Backups Automáticos: O MongoDB Atlas realiza backups automáticos de forma regular, garantindo que os dados possam ser recuperados em caso de falhas ou perda de dados. A frequência e a retenção dos backups são configuráveis, permitindo atender às necessidades específicas do projeto
 
 <!-- [alt text](image.png) -->
 
