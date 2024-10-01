@@ -25,6 +25,7 @@ ENV AWS_LAMBDA_URL=${AWS_LAMBDA_URL}
 
 ARG MONGO_URL
 ENV MONGO_URL=${MONGO_URL}
+
 COPY --from=build /usr/src/app/package.json ./
 COPY --from=build /usr/src/app/dist ./dist
 RUN npm install --omit=dev
