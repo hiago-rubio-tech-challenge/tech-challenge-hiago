@@ -8,8 +8,8 @@
     "resolveJsonModule": true
   },
   "include": [
-    "old_src/**/*.json",
-    "old_src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.ts",
     "src/web/schemas/checkoutSchema.ts"
   ]
 }

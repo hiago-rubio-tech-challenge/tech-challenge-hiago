@@ -3,17 +3,19 @@ FROM node:latest AS build
 
 WORKDIR /usr/src/app
 
+ARG AWS_LAMBDA_URL
+ENV AWS_LAMBDA_URL=${AWS_LAMBDA_URL}
+
+ARG MONGO_URL
+ENV MONGO_URL=${MONGO_URL}
+
+
 COPY package.json ./
 COPY tsconfig.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-ARG AWS_LAMBDA_URL
-ENV AWS_LAMBDA_URL=${AWS_LAMBDA_URL}
-
-ARG MONGO_URL
-ENV MONGO_URL=${MONGO_URL}
 
 # Etapa de produção
 FROM node:alpine
